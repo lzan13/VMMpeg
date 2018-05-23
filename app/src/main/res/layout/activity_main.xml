@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_theme_background"
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity"
+    >
+    <include layout="@layout/widget_appbar"/>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        >
+        <TextView
+            android:id="@+id/text_file_path"
+            android:layout_width="match_parent"
+            android:text="请先选择文件"
+            android:textAlignment="center"
+            style="@style/VMText.Body1"
+            />
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
+            android:id="@+id/view_group"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_file_path"
+            />
+
+        <RelativeLayout
+            android:id="@+id/layout_progress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/vm_black_54"
+            android:visibility="gone"
+            >
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="@dimen/vm_dimen_72"
+                android:layout_height="@dimen/vm_dimen_72"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>

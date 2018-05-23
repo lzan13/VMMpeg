@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConfigActivity">
+
+    <include layout="@layout/widget_appbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/vm_theme_background"
+        android:orientation="vertical"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btn_protocol"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Protocol" />
+
+            <Button
+                android:id="@+id/btn_codec"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Codec" />
+
+            <Button
+                android:id="@+id/btn_filter"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Filter" />
+
+            <Button
+                android:id="@+id/btn_format"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Format" />
+        </LinearLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <TextView
+                android:id="@+id/text_view"
+                style="@style/VMText.Body1"
+                android:layout_width="match_parent"
+                android:text="@string/app_name"
+                android:textAlignment="center" />
+        </ScrollView>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

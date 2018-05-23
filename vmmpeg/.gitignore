@@ -1,0 +1,8 @@
+
+.externalNativeBuild
+
+/build
+
+/libs
+/src/main/cpp/ffmpeg
+/src/main/cpp/libyuv

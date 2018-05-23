@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layout_coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/vm_theme_background"
+    android:fitsSystemWindows="true"
+    tools:context=".CameraActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/camera_preview_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal" />
+
+        <com.vmloft.develop.library.tools.widget.VMViewGroup
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true">
+
+            <Button
+                android:id="@+id/btn_save"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="SaveYUV" />
+
+            <Button
+                android:id="@+id/btn_encode"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Encode" />
+
+            <Button
+                android:id="@+id/btn_filter"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="Filter" />
+
+            <Button
+                android:id="@+id/btn_yuv_2_bitmap"
+                style="@style/VMBtn.Green.Fillet"
+                android:text="YUV2Bitmap" />
+        </com.vmloft.develop.library.tools.widget.VMViewGroup>
+    </RelativeLayout>
+</android.support.design.widget.CoordinatorLayout>

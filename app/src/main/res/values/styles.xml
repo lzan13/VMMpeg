@@ -1,0 +1,41 @@
+<resources>
+
+    <!-- 应用基础主题 -->
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="VMTheme">
+
+        <item name="android:buttonStyle">@style/VMBtn.Fillet</item>
+    </style>
+
+    <!--启动时的主题样式-->
+    <style name="AppTheme.Launcher">
+        <!--防止启动瞬间黑屏或白屏，程序启动时的背景图，可以设置为一张代表性的logo，或者设置app框架类图-->
+        <!--<item name="android:windowBackground">@drawable/bg_launcher_statusbar_toolbar</item>-->
+        <!--颜色背景-->
+        <item name="android:colorBackground">@color/vm_theme_background</item>
+    </style>
+
+    <style name="AppTheme.Transparent">
+        <item name="colorPrimary">@color/vm_transparent</item>
+        <item name="colorPrimaryDark">@color/vm_transparent</item>
+        <!-- 设置允许修改系统栏的背景色 比如导航栏 状态栏等-->
+        <item name="android:windowDrawsSystemBarBackgrounds">true</item>
+        <!--设置状态栏为透明-->
+        <item name="android:statusBarColor">@color/vm_black_38</item>
+        <!--设置导航栏半透明效果-->
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
+    <!--默认 AppBar 样式-->
+    <style name="AppTheme.AppBarOverlay" parent="VMTheme.AppBarOverlay">
+    </style>
+
+    <!--Toolbar 样式-->
+    <style name="AppTheme.ToolbarOverlay" parent="VMTheme.ToolbarOverlay">
+    </style>
+
+    <!--Toolbar 弹出 PopupMenu 样式-->
+    <style name="AppTheme.PopupOverlay" parent="VMTheme.PopupOverlay">
+    </style>
+
+</resources>
