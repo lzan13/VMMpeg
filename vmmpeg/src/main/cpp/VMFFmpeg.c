@@ -7,7 +7,7 @@
 #include <libavutil/mem.h>
 
 #include "VMLog.h"
-#include "VMYuvUtil.h"
+#include "VMYuv.h"
 #include "VMFFmpeg.h"
 
 

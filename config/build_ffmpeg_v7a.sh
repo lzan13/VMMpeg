@@ -54,12 +54,10 @@ TOOLCHAIN=${NDK}/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64
 # 头文件地址，因为新版 NDK 将 include 都移动到了 sysroot 下，所以需要进行配置，如果是使用 10e版本不需要次配置
 ISYSROOT=${NDK}/sysroot/usr/include
 # 优化参数
-OPTIMIZE_CFLAGS=""
+OPTIMIZE_CFLAGS="-lavformat -lavdevice -lavcodec -lavutil -lswresample  "
 ADDI_CFLAGS="-I${PLATFORM}/usr/include \
     -I${X264INC}
     "
-ADDI_LDFLAGS="-L${X264LIB}"
-
 # 手动配置编解码器的开关
 ENCODERS=""
 
@@ -70,7 +68,6 @@ echo "x264 lib:     ${X264LIB}"
 echo "x264 include: ${X264INC}"
 echo "optimize1:    ${OPTIMIZE_CFLAGS}"
 echo "optimize2:    ${ADDI_CFLAGS}"
-echo "optimize3:    ${ADDI_LDFLAGS}"
 
 # 切到 FFmpeg 目录下
 cd ../FFmpeg
@@ -101,67 +98,28 @@ function build_v7a {
     --disable-encoders \
     --enable-libx264 \
     --enable-gpl \
-    --enable-encoder=aac \
-    --enable-encoder=flv \
     --enable-encoder=libx264 \
-    --enable-encoder=mpeg4 \
-    --enable-encoder=bmp \
-    --enable-encoder=gif \
+    --enable-encoder=acc \
     --enable-encoder=mjpeg \
     --enable-encoder=png \
     --disable-decoders \
     --enable-decoder=aac \
     --enable-decoder=aac_latm \
-    --enable-decoder=flv \
     --enable-decoder=h264 \
     --enable-decoder=mpeg4 \
-    --enable-decoder=bmp \
     --enable-decoder=mjpeg \
     --enable-decoder=png \
-    --enable-decoder=webp \
-    --disable-muxers \
-    --enable-muxer=apng \
-    --enable-muxer=gif \
-    --enable-muxer=h264 \
-    --enable-muxer=image2 \
-    --enable-muxer=lrc \
-    --enable-muxer=mjpeg \
-    --enable-muxer=avi \
-    --enable-muxer=f4v \
-    --enable-muxer=flv \
-    --enable-muxer=m4v \
-    --enable-muxer=mov \
-    --enable-muxer=mp3 \
-    --enable-muxer=mp4 \
-    --enable-muxer=ogg \
-    --enable-muxer=wav \
-    --enable-muxer=webp \
     --disable-demuxers \
-    --enable-demuxer=gif \
-    --enable-demuxer=h264 \
     --enable-demuxer=image2 \
-    --enable-demuxer=lrc \
-    --enable-demuxer=mjpeg \
+    --enable-demuxer=h264 \
     --enable-demuxer=aac \
     --enable-demuxer=avi \
-    --enable-demuxer=flv \
-    --enable-demuxer=m4v \
-    --enable-demuxer=mov \
-    --enable-demuxer=mp3 \
     --enable-demuxer=mpc \
-    --enable-demuxer=ogg \
-    --enable-demuxer=wav \
+    --enable-demuxer=mov \
     --disable-parsers \
     --enable-parser=aac \
-    --enable-parser=aac_latm \
     --enable-parser=ac3 \
-    --enable-parser=bmp \
     --enable-parser=h264 \
-    --enable-parser=mjpeg \
-    --enable-parser=mpeg4video \
-    --enable-parser=mpegaudio \
-    --enable-parser=mpegvideo \
-    --enable-parser=png \
     --libdir=${PREFIX}/libs \
     --incdir=${PREFIX}/includes \
     --pkgconfigdir=${PREFIX}/pkgconfig \
@@ -169,10 +127,10 @@ function build_v7a {
     --cross-prefix=${TOOLCHAIN}/bin/arm-linux-androideabi- \
     --sysroot=${PLATFORM} \
     --extra-cflags="${ADDI_CFLAGS} ${OPTIMIZE_CFLAGS}" \
-    --extra-ldflags="${ADDI_LDFLAGS}" 
+    --extra-ldflags="-L${X264LIB}" 
 
     make clean
-    make -j4
+    make -j8
     make install
 }
 build_v7a

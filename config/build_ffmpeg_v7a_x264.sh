@@ -54,10 +54,8 @@ TOOLCHAIN=${NDK}/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64
 # 头文件地址，因为新版 NDK 将 include 都移动到了 sysroot 下，所以需要进行配置，如果是使用 10e版本不需要次配置
 ISYSROOT=${NDK}/sysroot/usr/include
 # 优化参数
-OPTIMIZE_CFLAGS="-lavformat -lavdevice -lavcodec -lavutil -lswresample  "
-ADDI_CFLAGS="-I${PLATFORM}/usr/include \
-    -I${X264INC}
-    "
+OPTIMIZE_CFLAGS="-fPIC -DANDROID -mfpu=neon -mfloat-abi=softfp -lavformat -lavdevice -lavcodec -lavutil -lavfilter "
+ADDI_CFLAGS="-I${PLATFORM}/usr/include -I${X264INC} "
 # 手动配置编解码器的开关
 ENCODERS=""
 
@@ -81,7 +79,6 @@ function build_v7a {
     --enable-asm \
     --enable-neon \
     --enable-small \
-    --enable-shared \
     --enable-static \
     --enable-cross-compile \
     --enable-runtime-cpudetect \
@@ -93,8 +90,8 @@ function build_v7a {
     --disable-ffprobe \
     --disable-postproc \
     --disable-programs \
+    --disable-shared \
     --disable-symver \
-    --disable-stripping \
     --disable-encoders \
     --enable-libx264 \
     --enable-gpl \
@@ -104,18 +101,25 @@ function build_v7a {
     --enable-encoder=png \
     --disable-decoders \
     --enable-decoder=aac \
-    --enable-decoder=aac_latm \
     --enable-decoder=h264 \
     --enable-decoder=mpeg4 \
     --enable-decoder=mjpeg \
     --enable-decoder=png \
+    --disable-muxers \
+    --enable-muxer=flv \
+    --enable-muxer=h264 \
+    --enable-muxer=mov \
+    --enable-muxer=mp3 \
+    --enable-muxer=mp4 \
+    --enable-muxer=wav \
     --disable-demuxers \
-    --enable-demuxer=image2 \
     --enable-demuxer=h264 \
     --enable-demuxer=aac \
     --enable-demuxer=avi \
-    --enable-demuxer=mpc \
+    --enable-demuxer=flv \
     --enable-demuxer=mov \
+    --enable-demuxer=mp3 \
+    --enable-demuxer=wav \
     --disable-parsers \
     --enable-parser=aac \
     --enable-parser=ac3 \

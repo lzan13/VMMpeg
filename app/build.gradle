@@ -32,7 +32,9 @@ dependencies {
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
 
-    // 引入自己封装的库
+    // 引入自己封装的工具类库
+    implementation 'com.vmloft.library:vmtools:0.1.1'
+
+    // 引入vmmpeg 主要是测试封装的代码
     implementation project(':vmmpeg')
-    implementation project(':vmtools')
 }

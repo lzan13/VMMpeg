@@ -29,14 +29,15 @@ include_directories(
 add_subdirectory(src/main/cpp/libyuv ./build)
 
 # 添加引用第三方库
-add_library(avcodec STATIC IMPORTED)
-set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libavcodec.a)
 
 add_library(avfilter STATIC IMPORTED)
 set_target_properties(avfilter PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libavfilter.a)
 
 add_library(avformat STATIC IMPORTED)
 set_target_properties(avformat PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libavformat.a)
+
+add_library(avcodec STATIC IMPORTED)
+set_target_properties(avcodec PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libavcodec.a)
 
 add_library(avutil STATIC IMPORTED)
 set_target_properties(avutil PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libavutil.a)

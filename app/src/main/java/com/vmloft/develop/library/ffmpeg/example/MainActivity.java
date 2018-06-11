@@ -13,13 +13,10 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import com.vmloft.develop.library.ffmpeg.VMEncoder;
-import com.vmloft.develop.library.ffmpeg.VMFFmpeg;
-import com.vmloft.develop.library.ffmpeg.VMMuxer;
 import com.vmloft.develop.library.ffmpeg.example.router.Router;
 import com.vmloft.develop.library.tools.router.VMParams;
-import com.vmloft.develop.library.tools.utils.VMFileUtil;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMFile;
+import com.vmloft.develop.library.tools.utils.VMStr;
 import com.vmloft.develop.library.tools.widget.VMToast;
 import com.vmloft.develop.library.tools.widget.VMViewGroup;
 
@@ -69,7 +66,7 @@ public class MainActivity extends AppActivity {
         }
         if (requestCode == CODE_SELECT_FILE) {
             Uri uri = intent.getData();
-            inPath = VMFileUtil.getPath(uri);
+            inPath = VMFile.getPath(uri);
             filepathView.setText(inPath);
         }
     }
@@ -112,7 +109,7 @@ public class MainActivity extends AppActivity {
      * 检查读取文件是否存在
      */
     private boolean checkFilepath() {
-        if (VMStrUtil.isEmpty(inPath)) {
+        if (VMStr.isEmpty(inPath)) {
             VMToast.make("没有选择文件，请先选择文件").showError();
             return false;
         }
@@ -125,7 +122,7 @@ public class MainActivity extends AppActivity {
     private void parseWritePath() {
         String path = inPath.substring(0, inPath.lastIndexOf("/") + 1);
         String filename = inPath.substring(inPath.lastIndexOf("/") + 1, inPath.lastIndexOf("."));
-        String[] nameArr = VMStrUtil.strToArray(filename, "\\.");
+        String[] nameArr = VMStr.strToArray(filename, "\\.");
         width = nameArr[1];
         height = nameArr[2];
         outPath = path + filename + "." + encode;

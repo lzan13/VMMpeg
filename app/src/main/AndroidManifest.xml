@@ -30,7 +30,7 @@
         <!--拍摄界面-->
         <activity android:name=".CameraActivity" />
         <!--播放界面-->
-        <activity android:name=".PlayVideoActivity" />
+        <activity android:name=".PlayActivity" />
         <!--ffmpeg 信息界面-->
         <activity android:name=".ConfigActivity" />
     </application>

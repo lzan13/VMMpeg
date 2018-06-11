@@ -9,13 +9,13 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import com.vmloft.develop.library.ffmpeg.example.router.Router;
 import com.vmloft.develop.library.tools.router.VMParams;
-import com.vmloft.develop.library.tools.utils.VMStrUtil;
+import com.vmloft.develop.library.tools.utils.VMStr;
 
 /**
  * Created by lzan13 on 2018/5/9.
  * 视频播放界面
  */
-public class PlayVideoActivity extends AppActivity {
+public class PlayActivity extends AppActivity {
 
     @BindView(R.id.btn_play) Button playBtn;
     @BindView(R.id.btn_pause) Button pauseBtn;
@@ -27,7 +27,7 @@ public class PlayVideoActivity extends AppActivity {
 
     @Override protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_video);
+        setContentView(R.layout.activity_play);
 
         ButterKnife.bind(activity);
 
@@ -36,7 +36,7 @@ public class PlayVideoActivity extends AppActivity {
 
     private void init() {
         VMParams params = Router.getParams(activity);
-        if (!VMStrUtil.isEmpty(params.str0)) {
+        if (!VMStr.isEmpty(params.str0)) {
             videoPath = params.str0;
         }
         videoView.setVideoPath(videoPath);

@@ -4,45 +4,41 @@
     android:id="@+id/layout_coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/vm_theme_background"
+    android:background="@color/vm_black"
     android:fitsSystemWindows="true"
-    tools:context=".CameraActivity">
+    tools:context=".CameraActivity"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        >
 
-        <LinearLayout
-            android:id="@+id/camera_preview_container"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal" />
+            >
+            <com.vmloft.develop.library.tools.camera.VMCameraView
+                android:id="@+id/widget_camera_view"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                />
+        </RelativeLayout>
 
         <com.vmloft.develop.library.tools.widget.VMViewGroup
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true">
-
-            <Button
-                android:id="@+id/btn_save"
-                style="@style/VMBtn.Green.Fillet"
-                android:text="SaveYUV" />
+            android:layout_centerHorizontal="true"
+            >
 
             <Button
                 android:id="@+id/btn_encode"
+                android:text="Encode"
                 style="@style/VMBtn.Green.Fillet"
-                android:text="Encode" />
+                />
 
-            <Button
-                android:id="@+id/btn_filter"
-                style="@style/VMBtn.Green.Fillet"
-                android:text="Filter" />
-
-            <Button
-                android:id="@+id/btn_yuv_2_bitmap"
-                style="@style/VMBtn.Green.Fillet"
-                android:text="YUV2Bitmap" />
         </com.vmloft.develop.library.tools.widget.VMViewGroup>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

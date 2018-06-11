@@ -14,7 +14,7 @@
 #include <libavutil/time.h>
 
 #include "VMLog.h"
-#include "VMYuvUtil.h"
+#include "VMYuv.h"
 #include "VMEncoder.h"
 
 enum AVCodecID *avCodecID = AV_CODEC_ID_H264;
@@ -90,8 +90,8 @@ int initEncoder(const char *outPath, int width, int height, int degrees) {
     /* put sample parameters */
     avCodecContext->bit_rate = 400000;
     /* resolution must be a multiple of two */
-    avCodecContext->width = width / 2;
-    avCodecContext->height = height / 2;
+    avCodecContext->width = height;
+    avCodecContext->height = width;
     /* frames per second */
     avCodecContext->time_base = (AVRational) {1, 25};
     avCodecContext->framerate = (AVRational) {25, 1};
@@ -138,19 +138,19 @@ int encodeData(uint8_t *data, int width, int height, int degrees) {
     int ret = 0;
 
     int frameSize = width * height * 3 / 2;
-    uint8_t *buffer = av_malloc(frameSize);
-    nv21ToI420(data, width, height, buffer);
+    uint8_t *i420Data = av_malloc(frameSize);
+    nv21ToI420(data, width, height, i420Data);
 
-    // 缩放
-    int scaleWidth = width / 2;
-    int scaleHeight = height / 2;
-    frameSize = scaleWidth * scaleHeight * 3 / 2;
-    uint8_t *scaleBuf = av_malloc(frameSize);
-    yuvScale(buffer, width, height, scaleBuf, scaleWidth, scaleHeight, 0);
-
-//    // 旋转
-//    uint8_t *i420Data = av_malloc(frameSize);
-//    yuvRotate(buffer, scaleWidth, scaleHeight, i420Data, degrees);
+    //    // 缩放
+    //    int scaleWidth = width / 2;
+    //    int scaleHeight = height / 2;
+    //    frameSize = scaleWidth * scaleHeight * 3 / 2;
+    //    uint8_t *scaleData = av_malloc(frameSize);
+    //    yuvScale(i420Data, width, height, scaleData, scaleWidth, scaleHeight, 0);
+    //
+    //    // 旋转
+    uint8_t *rotateData = av_malloc(frameSize);
+    yuvRotate(i420Data, width, height, rotateData, degrees);
 
     avFrame = av_frame_alloc();
     if (!avFrame) {
@@ -169,9 +169,9 @@ int encodeData(uint8_t *data, int width, int height, int degrees) {
     }
 
     int ySize = avCodecContext->width * avCodecContext->height;
-    avFrame->data[0] = scaleBuf;                  // Y
-    avFrame->data[1] = scaleBuf + ySize;          // U
-    avFrame->data[2] = scaleBuf + ySize * 5 / 4;  // V
+    avFrame->data[0] = rotateData;                  // Y
+    avFrame->data[1] = rotateData + ySize;          // U
+    avFrame->data[2] = rotateData + ySize * 5 / 4;  // V
 
     frameCount++;
     avFrame->pts = frameCount;

@@ -17,7 +17,7 @@ TOOLCHAIN=${NDK}/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64
 # 头文件地址，因为新版 NDK 将 include 都移动到了 sysroot 下，所以需要进行配置，如果是使用 10e版本不需要此配置
 ISYSROOT=${NDK}/sysroot/usr/include
 # 优化参数
-OPTIMIZE_CFLAGS=""
+OPTIMIZE_CFLAGS="-fPIC -DANDROID -mfpu=neon -mfloat-abi=softfp"
 ADDI_CFLAGS=""
 
 # 输出参数看下是否正确
@@ -32,9 +32,9 @@ cd ../X264
 function build_x264 {
     ./configure \
     --prefix=$PREFIX \
-    --enable-static \
     --enable-pic \
-    --disable-asm \
+    --enable-static \
+    --enable-strip \
     --disable-cli \
     --host=arm-linux-androideabi \
     --cross-prefix=${TOOLCHAIN}/bin/arm-linux-androideabi- \

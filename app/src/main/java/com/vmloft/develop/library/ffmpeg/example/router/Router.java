@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.vmloft.develop.library.ffmpeg.example.CameraActivity;
 import com.vmloft.develop.library.ffmpeg.example.ConfigActivity;
-import com.vmloft.develop.library.ffmpeg.example.PlayVideoActivity;
+import com.vmloft.develop.library.ffmpeg.example.PlayActivity;
 import com.vmloft.develop.library.tools.router.VMParams;
 import com.vmloft.develop.library.tools.router.VMRouter;
 
@@ -32,7 +32,7 @@ public class Router extends VMRouter {
      * 跳转到播放界面
      */
     public static void goPlay(Context context, VMParams params) {
-        overlay(context, PlayVideoActivity.class, params);
+        overlay(context, PlayActivity.class, params);
     }
 }
 
