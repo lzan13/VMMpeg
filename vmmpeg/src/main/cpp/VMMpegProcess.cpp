@@ -6,8 +6,10 @@
 #include "VMLog.h"
 #include "VMYuv.h"
 #include "VMVideoEncoder.h"
+#include "VMMpegPublish.h"
 
 VMVideoEncoder *videoEncoder;
+VMMpegPublish *mpegPublish;
 
 extern "C" {
 
@@ -205,4 +207,81 @@ Java_com_vmloft_develop_library_ffmpeg_VMMpegProcess_yuvCompress(JNIEnv *env, jc
     env->ReleaseByteArrayElements(dstData_, dstData, 0);
     return 0;
 }
+
+/**
+ * 初始化推流相关操作，建立与 RTMP 服务器链接¬
+ *
+ * @param url_ 推流地址
+ */
+JNIEXPORT jint JNICALL
+Java_com_vmloft_develop_library_ffmpeg_VMMpegProcess_initPublish(JNIEnv *env, jclass type, jstring url_) {
+    const char *url = env->GetStringUTFChars(url_, 0);
+
+    const char *url_cstr = env->GetStringUTFChars(url_, NULL);
+    //复制url_cstr内容到rtmp_path
+    char *rtmp_path = (char *) malloc(strlen(url_cstr) + 1);
+    memset(rtmp_path, 0, strlen(url_cstr) + 1);
+    memcpy(rtmp_path, url_cstr, strlen(url_cstr));
+
+    mpegPublish = new VMMpegPublish();
+    mpegPublish->init((unsigned char *) rtmp_path);
+
+    env->ReleaseStringUTFChars(url_, url);
+    return 0;
 }
+
+/**
+ * 发送视频数据头信息
+ *
+ * @param sps sps 数据
+ * @param spsLen sps 数据长度
+ * @param pps pps 数据
+ * @param ppsLen pps 数据长度
+ * @param timestamp 时间戳
+ */
+JNIEXPORT jint JNICALL
+Java_com_vmloft_develop_library_ffmpeg_VMMpegProcess_sendVideoHeader(JNIEnv *env, jclass type, jbyteArray sps_, jint spsLen, jbyteArray pps_, jint ppsLen, jlong timestamp) {
+    if (mpegPublish) {
+        jbyte *sps_data = env->GetByteArrayElements(sps_, NULL);
+        jbyte *pps_data = env->GetByteArrayElements(pps_, NULL);
+
+        mpegPublish->addSequenceH264Header((unsigned char *) sps_data, spsLen,
+                                           (unsigned char *) pps_data, ppsLen);
+
+        env->ReleaseByteArrayElements(sps_, sps_data, 0);
+        env->ReleaseByteArrayElements(pps_, pps_data, 0);
+    }
+    return 0;
+}
+
+/**
+ * 发送视频数据
+ *
+ * @param data 视频数据
+ * @param dataLen 视频数据长度
+ * @param timestamp 时间戳
+ */
+JNIEXPORT jint JNICALL
+Java_com_vmloft_develop_library_ffmpeg_VMMpegProcess_sendVideoData(JNIEnv *env, jclass type, jbyteArray data_, jint dataLen, jlong timestamp) {
+    if (mpegPublish) {
+        jbyte *video_data = env->GetByteArrayElements(data_, NULL);
+
+        mpegPublish->addH264Body((unsigned char *) video_data, dataLen, timestamp);
+
+        env->ReleaseByteArrayElements(data_, video_data, 0);
+    }
+    return 0;
+}
+
+/**
+ * 释放推流链接
+ */
+JNIEXPORT jint JNICALL
+Java_com_vmloft_develop_library_ffmpeg_VMMpegProcess_releasePublish(JNIEnv *env, jclass type) {
+    if (mpegPublish) {
+        mpegPublish->release();
+    }
+    return 0;
+}
+}
+

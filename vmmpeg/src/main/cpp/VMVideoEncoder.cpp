@@ -81,12 +81,12 @@ int VMVideoEncoder::encodeFrame(uint8_t *inBytes, int frameSize, int pts, uint8_
     pic_in.img.plane[1] = inBytes + i420_y_size;
     pic_in.img.plane[2] = inBytes + i420_y_size + i420_u_size;
 
-    LOGI("编码耗时 -1-");
+//    LOGI("编码耗时 -1-");
     // and encode and store into pic_out
     pic_in.i_pts = pts;
     //最主要的函数，x264编码，pic_in为x264输入，pic_out为x264输出
     int frame_size = x264_encoder_encode(encoder, &nals, &num_nals, &pic_in, &pic_out);
-    LOGI("编码耗时 -2-");
+//    LOGI("编码耗时 -2-");
 
     if (frame_size) {
         /*Here first four bytes proceeding the nal unit indicates frame length*/

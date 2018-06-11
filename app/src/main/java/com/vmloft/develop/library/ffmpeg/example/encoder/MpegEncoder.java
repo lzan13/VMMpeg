@@ -81,7 +81,7 @@ public class MpegEncoder {
                     try {
                         // 从队列中取出 YUV 数据
                         YUVData yuvData = videoQueue.take();
-                        computeFrameRate();
+                        //computeFrameRate();
                         fps++;
                         byte[] outData = new byte[yuvData.width * yuvData.height];
                         int[] outDataLen = new int[10];
@@ -95,6 +95,10 @@ public class MpegEncoder {
                             }
                             byte[] dstData = new byte[totalLength];
                             System.arraycopy(outData, 0, dstData, 0, totalLength);
+
+                            // 开始推数据
+                            MpegPublish.getInstance().publishData(dstData, dstData.length, segment);
+
                             if (isTestFile) {
                                 videoFileManager.saveFileData(dstData);
                             }

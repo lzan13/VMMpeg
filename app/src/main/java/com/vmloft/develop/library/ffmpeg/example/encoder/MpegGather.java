@@ -148,7 +148,7 @@ public class MpegGather {
                 while (isRunning && !Thread.interrupted()) {
                     try {
                         byte[] srcData = gatherQueue.take();
-                        computeFrameRate();
+                        //computeFrameRate();
                         // 摄像头旋转角度
                         int angle = cameraView.getRotateAngle();
                         int width = cameraView.getCameraWidth();

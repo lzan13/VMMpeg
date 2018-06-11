@@ -115,6 +115,37 @@ public class VMMpegProcess {
     public static native int yuvCompress(byte[] srcData, int width, int height, byte[] dstData, int dstWidth, int dstHeight, int mode, int angle, boolean isMirror);
 
     /**
-     * ------------------------- 相关 -------------------------
+     * ------------------------- 推流相关 -------------------------
      */
+    /**
+     * 初始化推流相关操作，建立与 RTMP 服务器链接¬
+     *
+     * @param url 推流地址
+     */
+    public static native int initPublish(String url);
+
+    /**
+     * 发送视频数据头信息
+     *
+     * @param sps sps 数据
+     * @param spsLen sps 数据长度
+     * @param pps pps 数据
+     * @param ppsLen pps 数据长度
+     * @param timestamp 时间戳
+     */
+    public static native int sendVideoHeader(byte[] sps, int spsLen, byte[] pps, int ppsLen, long timestamp);
+
+    /**
+     * 发送视频数据
+     *
+     * @param data 视频数据
+     * @param dataLen 视频数据长度
+     * @param timestamp 时间戳
+     */
+    public static native int sendVideoData(byte[] data, int dataLen, long timestamp);
+
+    /**
+     * 释放推流链接
+     */
+    public static native int releasePublish();
 }

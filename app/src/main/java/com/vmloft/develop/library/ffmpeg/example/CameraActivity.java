@@ -10,6 +10,7 @@ import butterknife.OnClick;
 
 import com.vmloft.develop.library.ffmpeg.example.encoder.MpegEncoder;
 import com.vmloft.develop.library.ffmpeg.example.encoder.MpegGather;
+import com.vmloft.develop.library.ffmpeg.example.encoder.MpegPublish;
 import com.vmloft.develop.library.tools.camera.VMCameraView;
 
 /**
@@ -21,6 +22,7 @@ public class CameraActivity extends AppActivity {
     @BindView(R.id.widget_camera_view) VMCameraView cameraView;
     @BindView(R.id.btn_encode) Button encodeBtn;
 
+    private String publishUrl = "rtmp://172.17.3.112:6677/live/room";
     private boolean isEncode = false;
     private int width = 1920;
     private int height = 1080;
@@ -39,6 +41,7 @@ public class CameraActivity extends AppActivity {
 
     private void init() {
         MpegGather.getInstance().init(cameraView, width, height, scaleWidth, scaleHeight);
+        MpegPublish.getInstance().init(publishUrl);
     }
 
     @OnClick({ R.id.btn_encode })

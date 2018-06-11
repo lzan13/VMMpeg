@@ -54,12 +54,21 @@ set_target_properties(x264 PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libx2
 # add_library(yuv STATIC IMPORTED)
 # set_target_properties(libyuv PROPERTIES IMPORTED_LOCATION $()/build/libyuv.a)
 
+add_library(postproc STATIC IMPORTED)
+set_target_properties(postproc PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libpostproc.a)
+
+add_library(polarssl STATIC IMPORTED)
+set_target_properties(polarssl PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/libpolarssl.a)
+
+add_library(rtmp STATIC IMPORTED)
+set_target_properties(rtmp PROPERTIES IMPORTED_LOCATION ${FFMPEG_DIR}/libs/librtmp.a)
+
 # 查找 ndk 自带的一些库，可以给这些库定义别名
 find_library(logger log)
 
 
 # 连接库，其中包含引入的第三方的静态以及动态库
-target_link_libraries(vmmpeg avfilter avformat avcodec avutil swresample swscale x264 yuv ${logger} )
+target_link_libraries(vmmpeg avfilter avformat avcodec avutil swresample swscale x264 yuv postproc polarssl rtmp ${logger} )
 
 
 ############################################################################################

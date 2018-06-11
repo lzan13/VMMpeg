@@ -199,7 +199,7 @@ void yuvCrop(uint8_t *srcData, int width, int height, uint8_t *dstData, int dstW
  * @param isMirror 是否镜像
  */
 void yuvCompress(uint8_t *srcData, int width, int height, uint8_t *dstData, int dstWidth, int dstHeight, int mode, int angle, bool isMirror) {
-    LOGI("压缩 YUV 数据开始，其中包含 NV21 转 I420，缩放，旋转，镜像");
+    //    LOGI("压缩 YUV 数据开始，其中包含 NV21 转 I420，缩放，旋转，镜像");
     // nv21 转化为 i420 (标准YUV420P数据) 这个 temp_i420_data 大小是和 srcData 是一样的
     nv21ToI420(srcData, width, height, temp_i420_data);
     // 进行缩放的操作，这个缩放，会把数据压缩
@@ -214,5 +214,5 @@ void yuvCompress(uint8_t *srcData, int width, int height, uint8_t *dstData, int 
         // 进行旋转的操作
         yuvRotate(temp_i420_data_scale, dstWidth, dstHeight, dstData, angle);
     }
-    LOGI("压缩 YUV 数据完成");
+    //    LOGI("压缩 YUV 数据完成");
 }
